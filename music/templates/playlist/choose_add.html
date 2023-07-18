@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+  {% if user.is_authenticated %}
+
+        <div class="container">
+              <div class="row ">
+                    <h1></h1>
+                    <div class="col d-flex justify-content-center">
+                      <div class="card" style="width: 18rem;">
+                          <div class="card-body">
+                            <p class="card-text d-flex justify-content-center">If you wont create own playlist. Playlist can add different song.</p>
+                            <a href="{% url 'playlist' %}" class="btn btn-success d-flex justify-content-center">Add your Playlist</a>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col d-flex justify-content-center">
+                      <div class="card" style="width: 18rem;">
+                          <div class="card-body">
+                            <p class="card-text d-flex justify-content-center">Create your own music. Upload mp3 and backgrount file.</p>
+                            <a href="{% url 'song' %}" class="btn btn-success d-flex justify-content-center">Add your Music</a>
+                          </div>
+                      </div>
+                    </div>
+              </div><h1></h1>
+        </div><h1></h1>
+
+        <div class="d-flex justify-content-center">
+            <nav class="navbar navbar-light p-3">
+                <h3>Your Music List</h3>
+            </nav>
+        </div>
+
+        {% for item in two %}
+            <div class="card" style="background-image: url('media/{{item.background}}'); background-size: cover; background-position: center;">
+                  <h5 class="card-header">{{ item.id }}</h5>
+                  <div class="card-body">
+                    <h5 class="card-title">{{ item.name_song }}</h5>
+                    <a href="#" class="btn btn-primary">Edit</a>
+                    <a href="#" class="btn btn-danger">Delete</a>
+                  </div>
+            </div><h1></h1>
+        {% endfor %}
+
+        <div class="d-flex justify-content-center">
+            <nav class="navbar navbar-light p-3">
+                <h3>Your Playlist List</h3>
+            </nav>
+        </div>
+
+        {% for item in three %}
+            <div class="card" style="background-image: url('media/{{item.background}}'); background-size: cover; background-position: center;">
+                  <h5 class="card-header">{{ item.id }}</h5>
+                  <div class="card-body">
+                    <h5 class="card-title">{{ item.title }}</h5>
+                    <p>{{ item.description }}</p>
+                    <a href="#" class="btn btn-primary">Edit</a>
+                  </div>
+            </div><h1></h1>
+        {% endfor %}
+
+  {% else %}
+
+        <div class="row">
+            <div class="d-flex justify-content-center">
+                <nav class="navbar navbar-light p-3">
+                    <h1>Music World</h1>
+                </nav>
+            </div>
+            <div class="d-flex justify-content-center">
+                <nav class="navbar navbar-light p-3">
+                    <h4>You is not auth</h4>
+                </nav>
+            </div>
+
+            <div class="d-flex justify-content-center p-3">
+                <nav class="navbar navbar-light bg-light">
+                    <a href="{% url 'login' %}" class="btn btn-primary stretched-link">Log In</a>
+                </nav>
+            </div>
+        </div>
+
+  {% endif %}
+
+{% endblock %}
