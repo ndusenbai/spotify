@@ -29,6 +29,9 @@ def playlist(request):
 def song(request):
     if request.method == 'POST':
         return redirect('choose')
+        if form.is_valid():
+            form.instance.user_id = request.user
+            form.save()
     else:
         form = SongForm(user=request.user)
         return render(request, template_name='playlist/song_add.html', context={'form': form})

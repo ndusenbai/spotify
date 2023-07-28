@@ -19,6 +19,6 @@ class SongForm(forms.Form):
         user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
         self.user = user
-        print(self.user)
+        print(PlayList.objects.values_list('id', 'title').filter(user_id=self.user.id))
         choices = PlayList.objects.values_list('id', 'title').filter(user_id=self.user.id)
         self.fields['playlist_id'].choices = choices

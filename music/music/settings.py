@@ -25,8 +25,7 @@ SECRET_KEY = "django-insecure-t83zm82#11z1ml$mexwrl5+rwi3wj%xn=5)m7um0^#d)sxkx=*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['freedom', 'localhost']
 
 # Application definition
 
@@ -40,6 +39,23 @@ INSTALLED_APPS = [
     "users",
     "playlist",
     'crispy_forms',
+    "authentication.apps.AuthenticationConfig",
+
+    # rest framework
+    "rest_framework",
+    "rest_framework.authtoken",
+
+    # make sure 'django.contrib.sites' is installed
+    "django.contrib.sites",
+
+    # add if you want social authentication
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+
+    # use the with_social
+    "dj_rest_auth",
+    "dj_rest_auth.registration",
 ]
 
 MIDDLEWARE = [
@@ -83,7 +99,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -96,6 +111,12 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ]
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -129,3 +150,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
+
+SITE_ID = 1  # make sure SITE_ID is set
